@@ -2,9 +2,93 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<h2>Set Id {{ setId }}</h2>
 
-<p>Use this area to provide additional information.</p>
+<form method="post" action="">
+    {% csrf_token %}
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Bad Match</td>
+                <td>First</td>
+                <td>Last</td>
+                <td>Middle</td>
+                <td>Suffix</td>
+                <td>DOB</td>
+                <td>Gender</td>
+                <td>SSN</td>
+                <td>Address1</td>
+                <td>Address2</td>
+                <td>Zip</td>
+                <td>MothersMaidenName</td>
+                <td>City</td>
+                <td>State</td>
+                <td>Phone</td>
+                <td>Phone2</td>
+                <td>Email</td>
+                <td>Alias</td>
+            </tr>
+        </thead>
+        {% for member in setMembers %}
+        <tr>
+            <td>
+                <input type="checkbox" name="member_{{member.id}}" value="{{member.id}}"/>
+            </td>
+            <td >
+                {{member.RecordId.FirstName}}
+            </td>
+            <td>
+                {{member.RecordId.LastName}}
+            </td>
+            <td>
+                {{member.RecordId.Middle}}
+            </td>
+            <td>
+                {{member.RecordId.Suffix}}
+            </td>
+            <td>
+                {{member.RecordId.DOB}}
+            </td>
+             <td>
+                {{member.RecordId.Gender}}
+            </td>
+             <td>
+                {{member.RecordId.SNN}}
+            </td>
+             <td>
+                {{member.RecordId.Address1}}
+            </td>
+             <td>
+                {{member.RecordId.Address2}}
+            </td>
+             <td>
+                {{member.RecordId.Zip}}
+            </td>
+             <td>
+                {{member.RecordId.MothersMaidenName}}
+            </td>
+             <td>
+                {{member.RecordId.City}}
+            </td>
+             <td>
+                {{member.RecordId.State}}
+            </td>
+             <td>
+                {{member.RecordId.Phone}}
+            </td>
+             <td>
+                {{member.RecordId.Phone2}}
+            </td>
+             <td>
+                {{member.RecordId.Email}}
+            </td>
+             <td>
+                {{member.RecordId.Alias}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Submit" />
+</form>
 
 {% endblock %}

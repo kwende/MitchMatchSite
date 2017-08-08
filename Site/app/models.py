@@ -28,6 +28,7 @@ class Record(models.Model):
 class Set(models.Model):
     Checked = models.BooleanField()
     Notes = models.TextField()
+    VersionNumber = models.IntegerField(default=0)
 
 class SetMember(models.Model):
     RecordId = models.ForeignKey(Record,  on_delete=models.CASCADE)

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['www.ben-rush.net', 'localhost']
 
 INSTALLED_APPS = [
     'app',
+    'app.dbhelper',
     # Add your apps here to enable them
     'django.contrib.admin',
     'django.contrib.auth',
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'Site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'D:\MitchMatchDb\db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'C:\MitchMatchDb\db.sqlite3'),
     }
 }
 
