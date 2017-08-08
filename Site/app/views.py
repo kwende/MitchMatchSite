@@ -3,7 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from random import randint
@@ -19,11 +19,15 @@ def home(request):
             item.IsGood = False
             item.save()
 
-        return HttpResponseRedirect("http://www.google.com")
+        set = Set.objects.get(pk = int(request.POST["setId"]))
+        set.Checked = True
+        set.save()
+
+        return HttpResponseRedirect("/")
     else:
         assert isinstance(request, HttpRequest)
     
-        ids = Set.objects.values_list('id', flat=True)
+        ids = Set.objects.filter(Checked = False).values_list('id', flat=True)
         randomIndex = randint(0, len(ids) - 1)
 
         set = Set.objects.get(pk = ids[randomIndex])
