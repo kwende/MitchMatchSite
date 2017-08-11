@@ -38,4 +38,5 @@ def home(request):
             {
                 'setId':set.id,
                 'setMembers':setMembers,
+                'numberLeft' : len(ids)
             })
