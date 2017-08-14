@@ -22,7 +22,7 @@ def findAlternatives(request):
     baseRecord = Record.objects.get(EnterpriseId = enterpriseId)
 
     if allRecords is None:
-        allRecords = Record.objects.all()
+        allRecords = Record.objects.filter(EnterpriseId__gte = 15374761)
 
     alternatives = []
 
