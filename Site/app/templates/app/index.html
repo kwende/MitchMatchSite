@@ -29,6 +29,7 @@
                 <td>Email</td>
                 <td>MRN</td>
                 <td>Alias</td>
+                <td>Alternatives</td>
             </tr>
         </thead>
         {% for member in setMembers %}
@@ -89,6 +90,9 @@
             </td>
              <td>
                 {{member.RecordId.Alias}}
+            </td>
+            <td>
+                <a href="/alternatives.html?id={{member.RecordId.EnterpriseId}}" target="_blank">Click to see alternatives</a>
             </td>
         </tr>
         {% endfor %}

@@ -1,0 +1,90 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+Number of alternatives {{count}}
+
+<table border="1">
+        <thead>
+            <tr>
+                <td>First</td>
+                <td>Last</td>
+                <td>Middle</td>
+                <td>Suffix</td>
+                <td>DOB</td>
+                <td>Gender</td>
+                <td>SSN</td>
+                <td>Address1</td>
+                <td>Address2</td>
+                <td>Zip</td>
+                <td>MothersMaidenName</td>
+                <td>City</td>
+                <td>State</td>
+                <td>Phone</td>
+                <td>Phone2</td>
+                <td>Email</td>
+                <td>MRN</td>
+                <td>Alias</td>
+            </tr>
+        </thead>
+        {% for member in alternatives %}
+        <tr>
+            <td >
+                {{member.FirstName}}
+            </td>
+            <td>
+                {{member.LastName}}
+            </td>
+            <td>
+                {{member.Middle}}
+            </td>
+            <td>
+                {{member.Suffix}}
+            </td>
+            <td>
+                {{member.DOB}}
+            </td>
+             <td>
+                {{member.Gender}}
+            </td>
+             <td>
+                {{member.SNN}}
+            </td>
+             <td>
+                {{member.Address1}}
+            </td>
+             <td>
+                {{member.Address2}}
+            </td>
+             <td>
+                {{member.Zip}}
+            </td>
+             <td>
+                {{member.MothersMaidenName}}
+            </td>
+             <td>
+                {{member.City}}
+            </td>
+             <td>
+                {{member.State}}
+            </td>
+             <td>
+                {{member.Phone}}
+            </td>
+             <td>
+                {{member.Phone2}}
+            </td>
+             <td>
+                {{member.Email}}
+            </td>
+            <td>
+                {{member.MRN}}
+            </td>
+             <td>
+                {{member.Alias}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

@@ -16,7 +16,8 @@ import app.views
 
 urlpatterns = [
     # Examples:
-    url(r'^$', app.views.home, name='home')
+    url(r'^$', app.views.home, name='home'),
+    url(r'^alternatives.html', app.views.findAlternatives, name='alternatives')
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

@@ -28,69 +28,58 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['www.ben-rush.net', 'localhost']
 
-
 # Application definition
-
-INSTALLED_APPS = [
-    'app',
+INSTALLED_APPS = ['app',
     'app.dbhelper',
+    'app.softmatching',
     # Add your apps here to enable them
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-]
+    'django.contrib.staticfiles',]
 
-MIDDLEWARE_CLASSES = [
-    'django.middleware.security.SecurityMiddleware',
+MIDDLEWARE_CLASSES = ['django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',]
 
 ROOT_URLCONF = 'Site.urls'
 
-TEMPLATES = [
-    {
+TEMPLATES = [{
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
+            'context_processors': ['django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+                'django.contrib.messages.context_processors.messages',],
         },
-    },
-]
+    },]
 
 WSGI_APPLICATION = 'Site.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'C:\MitchMatchDb\db.sqlite3'),
+        #'NAME': os.path.join(BASE_DIR, 'C:\MitchMatchDb\db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'D:\MitchMatchDb\db.sqlite3'),
     }
 }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
+AUTH_PASSWORD_VALIDATORS = [{
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
@@ -101,13 +90,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+    },]
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -121,7 +108,37 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-
 STATIC_URL = '/static/'
 
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+
+BAD_SSNs = ["",
+    "000-00-0000",
+    "000-00-0001",
+    "098-76-5432",
+    "109-87-6543",
+    "111-11-1111",
+    "123-45-6789",
+    "210-98-7654",
+    "222-22-2222",
+    "234-56-7890",
+    "321-09-8765",
+    "333-33-3333",
+    "345-67-8901",
+    "432-10-9876",
+    "444-44-4444",
+    "456-78-9012",
+    "543-21-0987",
+    "555-55-5555",
+    "567-89-0123",
+    "654-32-1098",
+    "666-66-6666",
+    "678-90-1234",
+    "765-43-2109",
+    "777-77-7777",
+    "789-01-2345",
+    "876-54-3210",
+    "888-88-8888",
+    "890-12-3456",
+    "901-23-4567",
+    "999-99-9999"]

@@ -7,8 +7,35 @@ from django.http import HttpRequest, HttpResponseRedirect
 from django.template import RequestContext
 from datetime import datetime
 from random import randint
+from app.softmatching.algorithms import easiestAgreementCount
 
 from app.models import Record, Set, SetMember
+from django.db.models import Count
+from django.core.cache import cache
+
+allRecords = None
+
+def findAlternatives(request):
+    global allRecords
+    enterpriseId = request.GET["id"]
+
+    baseRecord = Record.objects.get(EnterpriseId = enterpriseId)
+
+    if allRecords is None:
+        allRecords = Record.objects.all()
+
+    alternatives = []
+
+    for comparisonRecord in allRecords:
+        count = easiestAgreementCount(baseRecord, comparisonRecord)
+        if count >= 2:
+            alternatives.append(comparisonRecord)
+
+    return render(request, 'app/alternatives.html',
+                  {
+                      'count' : len(alternatives),
+                      'alternatives' : alternatives
+                  })
 
 def home(request):
 

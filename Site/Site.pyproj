@@ -38,6 +38,12 @@
     </Compile>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
+    <Compile Include="app\softmatching\algorithms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\softmatching\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
@@ -51,6 +57,7 @@
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
     <Folder Include="app\dbhelper\" />
+    <Folder Include="app\softmatching\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
@@ -61,6 +68,7 @@
     <Folder Include="Site\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\templates\app\alternatives.html" />
     <Content Include="NOTES.txt">
       <SubType>Code</SubType>
     </Content>
