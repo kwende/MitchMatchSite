@@ -18,6 +18,7 @@ allRecords = None
 def findAlternatives(request):
     global allRecords
     enterpriseId = request.GET["id"]
+    allIds = [int(a) for a in request.GET["all"].split(',')]
 
     baseRecord = Record.objects.get(EnterpriseId = enterpriseId)
 
@@ -27,9 +28,10 @@ def findAlternatives(request):
     alternatives = []
 
     for comparisonRecord in allRecords:
-        count = easiestAgreementCount(baseRecord, comparisonRecord)
-        if count >= 2:
-            alternatives.append(comparisonRecord)
+        if not comparisonRecord.EnterpriseId in allIds:
+            count = easiestAgreementCount(baseRecord, comparisonRecord)
+            if count >= 2:
+                alternatives.append(comparisonRecord)
 
     return render(request, 'app/alternatives.html',
                   {
@@ -60,10 +62,13 @@ def home(request):
         set = Set.objects.get(pk = ids[randomIndex])
         setMembers = SetMember.objects.filter(SetId__id = set.id)
 
+        enterpriseIdsForSet = ",".join([str(s.RecordId.EnterpriseId) for s in setMembers])
+        
         return render(request,
             'app/index.html',
             {
                 'setId':set.id,
                 'setMembers':setMembers,
-                'numberLeft' : len(ids)
+                'numberLeft' : len(ids),
+                'enterpriseIds' : enterpriseIdsForSet,
             })

@@ -63,22 +63,27 @@ def transposedDigit(a, b):
         possibleTransposition = True
         transpositionDetected = False
 
-        for i in range(0, len(a)):
+        i = 0
+        while i < len(a):
             if a[i] != b[i]:
                 if not transpositionDetected and (i + 1 < len(a) and a[i] == b[i + 1] and b[i] == a[i + 1]):
                     transpositionDetected = True
                     i = i + 1
                 else:
-                    possibleTransposition = True
+                    possibleTransposition = False
+            i = i + 1
 
         return transpositionDetected and possibleTransposition
 
 def dateTimeOffBy100(a, b):
 
-    intA = int(a)
-    intB = int(b)
+    if a != "" and b != "":
+        intA = int(a)
+        intB = int(b)
 
-    return a == b - 100 or b == a - 100
+        return intA == intB - 100 or intB == intA - 100
+    else:
+        return False
 
 
 def fuzzyDateEquals(date1String, date2String):
@@ -102,10 +107,10 @@ def fuzzyDateEquals(date1String, date2String):
     year1 = date1Bits[yearIndex]
     year2 = date2Bits[yearIndex]
 
-    if dateOneOrOneDigit(month1, month2) and day1 == day2 and year1 == year1:
+    if dateOneOrOneDigit(month1, month2) and day1 == day2 and year1 == year2:
         return True
 
-    if month1 == month2 and dateOneOrOneDigit(day1, day2):
+    if month1 == month2 and dateOneOrOneDigit(day1, day2) and year1 == year2:
         return True
 
     if month1 == month2 and day1 == day2 and (dateOneOrOneDigit(year1, year2) or transposedDigit(year1, year2) \
@@ -123,7 +128,7 @@ def easiestAgreementCount(row1, row2):
     if kDifferences(row1.LastName, row2.LastName, 2):
         fieldAgreement = fieldAgreement + 1
 
-    if kDifferences(row1.FirstName, row2.LastName, 2):
+    if kDifferences(row1.FirstName, row2.FirstName, 2):
         fieldAgreement = fieldAgreement + 1
 
     if fuzzySSNMatch(row1.SSN, row2.SSN):

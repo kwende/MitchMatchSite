@@ -92,13 +92,14 @@
                 {{member.RecordId.Alias}}
             </td>
             <td>
-                <a href="/alternatives.html?id={{member.RecordId.EnterpriseId}}" target="_blank">Click to see alternatives</a>
+                <a href="/alternatives.html?id={{member.RecordId.EnterpriseId}}&all={{enterpriseIds}}" target="_blank">Click to see alternatives</a>
             </td>
         </tr>
         {% endfor %}
     </table>
     <input type="hidden" value="{{setId}}" name="setId"/>
     <input type="submit" value="Submit" />
+    <input type="hidden" value="{{enterpriseIds}}" name="enterpriseIds"/>
 </form>
 
 {% endblock %}
