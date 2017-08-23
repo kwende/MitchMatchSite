@@ -29,7 +29,7 @@
                 <td>Email</td>
                 <td>MRN</td>
                 <td>Alias</td>
-                <td>Alternatives</td>
+                <td>EnterpriseId</td>
             </tr>
         </thead>
         {% for record in coloredRecords %}
@@ -92,10 +92,78 @@
                 {{record.Alias}}
             </td>
             <td>
-                <a href="/alternatives.html?id={{record.EnterpriseId}}&all={{enterpriseIds}}" target="_blank">Click to see alternatives</a>
+                {{member.RecordId.EnterpriseId}}
             </td>
         </tr>
         {% endfor %}
+
+    {% for softmatchGroup in softMatches %}
+        <tr>
+            <td colspan="20">Matches {{softmatchGroup.EnterpriseId}}</td>
+        </tr>
+        {% for member in softmatchGroup.SoftMatches %}
+        <tr>
+            <td></td>
+            <td >
+                {{member.FirstName}}
+            </td>
+            <td>
+                {{member.LastName}}
+            </td>
+            <td>
+                {{member.Middle}}
+            </td>
+            <td>
+                {{member.Suffix}}
+            </td>
+            <td>
+                {{member.DOB}}
+            </td>
+             <td>
+                {{member.Gender}}
+            </td>
+             <td>
+                {{member.SNN}}
+            </td>
+             <td>
+                {{member.Address1}}
+            </td>
+             <td>
+                {{member.Address2}}
+            </td>
+             <td>
+                {{member.Zip}}
+            </td>
+             <td>
+                {{member.MothersMaidenName}}
+            </td>
+             <td>
+                {{member.City}}
+            </td>
+             <td>
+                {{member.State}}
+            </td>
+             <td>
+                {{member.Phone}}
+            </td>
+             <td>
+                {{member.Phone2}}
+            </td>
+             <td>
+                {{member.Email}}
+            </td>
+            <td>
+                {{member.MRN}}
+            </td>
+             <td>
+                {{member.Alias}}
+            </td>
+            <td>
+                {{member.EnterpriseId}}
+            </td>
+        </tr>
+        {% endfor %}
+    {% endfor %}
     </table>
     <input type="hidden" value="{{setId}}" name="setId"/>
     <input type="submit" value="Submit" />

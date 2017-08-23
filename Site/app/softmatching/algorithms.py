@@ -117,7 +117,7 @@ def fuzzyDateEquals(date1String, date2String):
         or dateTimeOffBy100(year1, year2)):
         return True
 
-    if month1 == day2 and day1 == month2 and year1 == year2:
+    if month1 == day2 and day1 == month2 and year1 == year2:  #Transpose day an month
         return True
 
     return
@@ -134,7 +134,7 @@ def easiestAgreementCount(row1, row2):
     if fuzzySSNMatch(row1.SSN, row2.SSN):
         fieldAgreement = fieldAgreement + 1
 
-    if fuzzyAddressMatch(row1.Address1, row2.Address2):
+    if fuzzyAddressMatch(row1.Address1, row2.Address1):
         fieldAgreement = fieldAgreement + 1
 
     if fuzzyDateEquals(row1.DOB, row2.DOB):
