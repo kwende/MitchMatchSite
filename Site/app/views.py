@@ -14,6 +14,7 @@ from django.db.models import Count
 from django.core.cache import cache
 
 allRecords = None
+whichId = 0
 
 def findAlternatives(request):
     global allRecords
@@ -39,9 +40,31 @@ def findAlternatives(request):
                       'alternatives' : alternatives
                   })
 
-def home(request):
+def findSoftMatches(enterpriseId):
+    global allRecords
 
-    if request.method == "POST":
+    softMatches = []
+
+    baseRecord = Record.objects.get(EnterpriseId = enterpriseId)
+
+    if allRecords is None:
+        allRecords = Record.objects.filter(EnterpriseId__gte = 15374761)
+
+    for comparisonRecord in allRecords:
+        if comparisonRecord.EnterpriseId != baseRecord.EnterpriseId:
+            count = easiestAgreementCount(baseRecord, comparisonRecord)
+            if count >= 2:
+              softMatches.append(comparisonRecord)
+
+    return {
+        'EnterpriseId' : enterpriseId,
+        'SoftMatches' : softMatches
+        }
+
+def home(request):
+    global whichId
+
+    if request.method == "POST": #This is what we do if the button has been pressed
         baddies = [request.POST[p] for p in request.POST if p.startswith("member_")]
         for baddy in baddies:
             item = SetMember.objects.get(pk = int(baddy))
@@ -54,15 +77,25 @@ def home(request):
 
         return HttpResponseRedirect("/")
     else:
-        assert isinstance(request, HttpRequest)
+        whichId = whichId + 1
+
+        assert isinstance(request, HttpRequest) #This is what we do if we have come into the top level site
     
-        ids = Set.objects.filter(Checked = False).values_list('id', flat=True)
+        ids = Set.objects.values_list('id', flat=True)
         randomIndex = randint(0, len(ids) - 1)
 
+
         set = Set.objects.get(pk = ids[randomIndex])
-        setMembers = SetMember.objects.filter(SetId__id = set.id)
+        setMembers = SetMember.objects.filter(SetId__id = 18)
 
         enterpriseIdsForSet = ",".join([str(s.RecordId.EnterpriseId) for s in setMembers])
+
+        softMatches = []
+        if "showAlternatives" in request.GET:
+            for setMember in setMembers:
+                softMatches.append(findSoftMatches(setMember.RecordId.EnterpriseId))
+
+        
         
         return render(request,
             'app/index.html',
@@ -71,4 +104,5 @@ def home(request):
                 'setMembers':setMembers,
                 'numberLeft' : len(ids),
                 'enterpriseIds' : enterpriseIdsForSet,
+                'softMatches' : softMatches
             })
