@@ -100,8 +100,6 @@ def home(request):
             for setMember in setMembers:
                 softMatches.append(findSoftMatches(setMember.RecordId.EnterpriseId))
 
-        
-        
         return render(request,
             'app/index.html',
             {
