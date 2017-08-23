@@ -14,6 +14,7 @@ from django.db.models import Count
 from django.core.cache import cache
 
 from app.displaymodels import ColoredRecord
+from app.softmatching.coloring import buildColoredRecords
 
 import random
 
@@ -66,49 +67,13 @@ def home(request):
         set = Set.objects.get(pk = ids[randomIndex])
         setMembers = SetMember.objects.filter(SetId__id = set.id)
 
-        coloredRecords = []
-        for setMember in setMembers:
-            coloredRecord = ColoredRecord()
-
-            coloredRecord.id = setMember.id
-            coloredRecord.EnterpriseId = setMember.RecordId.EnterpriseId
-            coloredRecord.LastName = setMember.RecordId.LastName
-            coloredRecord.FirstName = setMember.RecordId.FirstName
-            coloredRecord.MiddleName = setMember.RecordId.MiddleName
-            coloredRecord.Suffix = setMember.RecordId.Suffix
-            coloredRecord.DOB = setMember.RecordId.DOB
-            coloredRecord.Gender = setMember.RecordId.Gender
-            coloredRecord.SSN = setMember.RecordId.SSN
-            coloredRecord.Address1 = setMember.RecordId.Address1
-            coloredRecord.Address2 = setMember.RecordId.Address2
-            coloredRecord.Zip = setMember.RecordId.Zip
-            coloredRecord.MothersMaidenName = setMember.RecordId.MothersMaidenName
-            coloredRecord.MRN = setMember.RecordId.MRN
-            coloredRecord.City = setMember.RecordId.City
-            coloredRecord.State = setMember.RecordId.State
-            coloredRecord.Phone = setMember.RecordId.Phone
-            coloredRecord.Phone2 = setMember.RecordId.Phone2
-            coloredRecord.Email = setMember.RecordId.Email
-            coloredRecord.Alias = setMember.RecordId.Alias
-
-            coloredRecords.append(coloredRecord)
-        
-        r = lambda: random.randint(0,255)
-        for a in range(0, len(coloredRecords)):
-            for b in range(a+1, len(coloredRecords)):
-
-                if coloredRecords[a].LastName == coloredRecords[b].LastName:
-                    color = '#%02X%02X%02X' % (r(),r(),r())
-                    coloredRecords[a].LastNameColor = color
-                    coloredRecords[b].LastNameColor = color
-
         enterpriseIdsForSet = ",".join([str(s.RecordId.EnterpriseId) for s in setMembers])
         
         return render(request,
             'app/index.html',
             {
                 'setId':set.id,
-                'coloredRecords':coloredRecords,
+                'coloredRecords':buildColoredRecords(setMembers),
                 'numberLeft' : len(ids),
                 'enterpriseIds' : enterpriseIdsForSet,
             })

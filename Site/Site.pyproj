@@ -44,6 +44,9 @@
     <Compile Include="app\softmatching\algorithms.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\softmatching\coloring.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\softmatching\__init__.py">
       <SubType>Code</SubType>
     </Compile>

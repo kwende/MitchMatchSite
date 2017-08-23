@@ -24,7 +24,7 @@ def fuzzySSNMatch(ssnA, ssnB):
 
 def fuzzyAddressMatch(address1, address2):
 
-    if address1 == "" or address1 == "":
+    if address1 == "" or address2 == "":
         return False
     if address1 == address2:
         return True
@@ -134,7 +134,7 @@ def easiestAgreementCount(row1, row2):
     if fuzzySSNMatch(row1.SSN, row2.SSN):
         fieldAgreement = fieldAgreement + 1
 
-    if fuzzyAddressMatch(row1.Address1, row2.Address2):
+    if fuzzyAddressMatch(row1.Address1, row2.Address1):
         fieldAgreement = fieldAgreement + 1
 
     if fuzzyDateEquals(row1.DOB, row2.DOB):
