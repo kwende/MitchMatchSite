@@ -141,3 +141,4 @@ def easiestAgreementCount(row1, row2):
         fieldAgreement = fieldAgreement + 1
 
     return fieldAgreement
+
