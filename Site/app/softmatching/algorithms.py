@@ -117,7 +117,7 @@ def fuzzyDateEquals(date1String, date2String):
         or dateTimeOffBy100(year1, year2)):
         return True
 
-    if month1 == day2 and day1 == month2 and year1 == year2:
+    if month1 == day2 and day1 == month2 and year1 == year2:  #Transpose day an month
         return True
 
     return
