@@ -90,7 +90,7 @@ def home(request):
 
 
         set = Set.objects.get(pk = ids[randomIndex])
-        setMembers = SetMember.objects.filter(SetId__id = 18)
+        setMembers = SetMember.objects.filter(SetId__id = set.id)
 
         coloredRecords = []
         for setMember in setMembers:
