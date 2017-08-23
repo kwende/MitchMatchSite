@@ -36,6 +36,9 @@
     <Compile Include="app\dbhelper\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="app\displaymodels.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\softmatching\algorithms.py">
