@@ -89,7 +89,6 @@ def home(request):
         ids = Set.objects.values_list('id', flat=True)
         randomIndex = randint(0, len(ids) - 1)
 
-
         set = Set.objects.get(pk = ids[randomIndex])
         setMembers = SetMember.objects.filter(SetId__id = set.id)
 
