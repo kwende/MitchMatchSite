@@ -1,8 +1,20 @@
 from app.displaymodels import ColoredRecord
 from app.models import Record, Set, SetMember
+import app.softmatching.algorithms 
 import random
 
-def setColors(colorStrings, attributeName, coloredRecords):
+def setFuzzyColors(attributeName, coloredRecords, fuzzyFunction):
+    attributeColorName = attributeName + "Color"
+
+    for a in range(0, len(coloredRecords)):
+        if getattr(coloredRecords[a],attributeColorName) == "":
+            for b in range(a+1, len(coloredRecords)):
+                if getattr(coloredRecords[b],attributeColorName) == "" and \
+                    fuzzyFunction(getattr(coloredRecords[a],attributeName), getattr(coloredRecords[b],attributeName)):
+                    setattr(coloredRecords[a], attributeColorName,"#00FF00")
+                    setattr(coloredRecords[b], attributeColorName,"#00FF00")
+
+def setColors(attributeName, coloredRecords):
 
     attributeColorName = attributeName + "Color"
 
@@ -13,12 +25,11 @@ def setColors(colorStrings, attributeName, coloredRecords):
         if getattr(coloredRecords[a], attributeColorName) == "":
 
             # nope, so grab a color
-            colorString = colorStrings[colorIndex]
             matchFound = False
             for b in range(a+1, len(coloredRecords)):
                 if getattr(coloredRecords[a], attributeName) == getattr(coloredRecords[b], attributeName) and getattr(coloredRecords[b], attributeColorName) == "":
-                    setattr(coloredRecords[a],attributeColorName, colorString)
-                    setattr(coloredRecords[b],attributeColorName, colorString)
+                    setattr(coloredRecords[a],attributeColorName, "#FF0000")
+                    setattr(coloredRecords[b],attributeColorName, "#FF0000")
                     matchFound = True
 
             if matchFound:
@@ -57,11 +68,17 @@ def buildColoredRecords(setMembers):
 
     attributeNames = [a for a in dir(coloredRecords[0]) if not a.startswith("_") and not a.endswith("Color") and not a == "EnterpriseId" and not a == "id"]
 
-    #r/g/b should be good enough, though r and g should only ever be used (max is a four-tuple, i think)
     colorStrings = ["#FF0000", "#00FF00", "#0000FF"]
 
+    # look for exact matches
     for attributeName in attributeNames:
-        setColors(colorStrings, attributeName, coloredRecords)
+        setColors(attributeName, coloredRecords)
 
+    # look for soft matches
+    setFuzzyColors("LastName", coloredRecords, app.softmatching.algorithms.fuzzyLastName)
+    setFuzzyColors("FirstName", coloredRecords, app.softmatching.algorithms.fuzzyFirstName)
+    setFuzzyColors("DOB", coloredRecords, app.softmatching.algorithms.fuzzyDateEquals)
+    setFuzzyColors("Address1", coloredRecords, app.softmatching.algorithms.fuzzyAddressMatch)
+    setFuzzyColors("SSN", coloredRecords, app.softmatching.algorithms.fuzzySSNMatch)
 
     return coloredRecords

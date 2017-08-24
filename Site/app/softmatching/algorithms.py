@@ -122,13 +122,19 @@ def fuzzyDateEquals(date1String, date2String):
 
     return
 
+def fuzzyLastName(lastName1, lastName2):
+    return kDifferences(lastName1, lastName2, 2)
+
+def fuzzyFirstName(firstName1, firstName2):
+    return kDifferences(firstName1, firstName2, 2)
+
 def easiestAgreementCount(row1, row2):
     fieldAgreement = 0
 
-    if kDifferences(row1.LastName, row2.LastName, 2):
+    if fuzzyLastName(row1.LastName, row2.LastName):
         fieldAgreement = fieldAgreement + 1
 
-    if kDifferences(row1.FirstName, row2.FirstName, 2):
+    if fuzzyFirstName(row1.FirstName, row2.FirstName):
         fieldAgreement = fieldAgreement + 1
 
     if fuzzySSNMatch(row1.SSN, row2.SSN):
@@ -141,4 +147,6 @@ def easiestAgreementCount(row1, row2):
         fieldAgreement = fieldAgreement + 1
 
     return fieldAgreement
+
+
 
