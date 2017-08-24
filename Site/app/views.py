@@ -66,6 +66,22 @@ def findSoftMatches(enterpriseId):
         'SoftMatches' : softMatches
         }
 
+def showPassed(request):
+
+    allCheckedSetIds = Set.objects.filter(Checked = True).values_list('id', flat = True)
+
+    setOfSets = []
+
+    for checkedSetId in allCheckedSetIds:
+        set = list(SetMember.objects.filter(SetId__id = checkedSetId))
+        setOfSets.append(set)
+        
+    return render(request, 
+                  'app/passed.html',
+                  {
+                      'passedSets':setOfSets
+                  })
+
 def home(request):
     global whichId
 
@@ -93,7 +109,6 @@ def home(request):
             randomIndex = randint(0, len(ids) - 1)
             setId = Set.objects.get(pk = ids[randomIndex]).id
         
-
         setMembers = SetMember.objects.filter(SetId__id = setId)
 
         enterpriseIdsForSet = ",".join([str(s.RecordId.EnterpriseId) for s in setMembers])
