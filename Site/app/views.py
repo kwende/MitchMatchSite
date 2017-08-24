@@ -82,15 +82,19 @@ def home(request):
 
         return HttpResponseRedirect("/")
     else:
-        whichId = whichId + 1
-
         assert isinstance(request, HttpRequest) #This is what we do if we have come into the top level site
     
-        ids = Set.objects.values_list('id', flat=True)
-        randomIndex = randint(0, len(ids) - 1)
+        ids = Set.objects.filter(Checked = False).values_list('id', flat=True)
 
-        set = Set.objects.get(pk = ids[randomIndex])
-        setMembers = SetMember.objects.filter(SetId__id = set.id)
+        setId = 0
+        if "setId" in request.GET:
+            setId = request.GET["setId"]
+        else:
+            randomIndex = randint(0, len(ids) - 1)
+            setId = Set.objects.get(pk = ids[randomIndex]).id
+        
+
+        setMembers = SetMember.objects.filter(SetId__id = setId)
 
         enterpriseIdsForSet = ",".join([str(s.RecordId.EnterpriseId) for s in setMembers])
 
@@ -102,7 +106,7 @@ def home(request):
         return render(request,
             'app/index.html',
             {
-                'setId':set.id,
+                'setId':setId,
                 'coloredRecords':buildColoredRecords(setMembers),
                 'numberLeft' : len(ids),
                 'enterpriseIds' : enterpriseIdsForSet,
