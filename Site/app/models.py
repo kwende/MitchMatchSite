@@ -34,3 +34,9 @@ class SetMember(models.Model):
     RecordId = models.ForeignKey(Record,  on_delete=models.CASCADE)
     SetId = models.ForeignKey(Set, on_delete=models.CASCADE)
     IsGood = models.NullBooleanField()
+
+class RecordFuzzyMatch(models.Model):
+    #https://stackoverflow.com/questions/2606194/django-error-message-add-a-related-name-argument-to-the-definition
+    ToMatch = models.ForeignKey(Record,  on_delete=models.CASCADE, related_name='tomatch_record_set')
+    FuzzyMatched = models.ForeignKey(Record,  on_delete=models.CASCADE, related_name='fuzzymatched_record_set')
+

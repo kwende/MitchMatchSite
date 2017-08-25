@@ -1,5 +1,49 @@
 import csv
-from app.models import Record, Set, SetMember
+from app.models import Record, Set, SetMember, RecordFuzzyMatch
+
+def ImportAlternativeMatches(txtFile):
+
+    with open(txtFile) as input:
+        allLines = input.readlines()
+
+        print("Reading all records...")
+        allRecords = list(Record.objects.all())
+        print("...done")
+
+        matchedRecords = []
+        num = 0
+        for line in allLines:
+
+            print("processing line " + str(num) + " of " + str(len(allLines)))
+            num = num + 1
+
+            enterpriseIds = line.split(',')
+
+            numAppended = 0
+            if len(enterpriseIds) > 1:
+                toMatchId = int(enterpriseIds[0])
+                fuzzyMatchedIds = [int(a) for a in enterpriseIds[1:]]
+                print("\tGoing to add " + str(len(fuzzyMatchedIds)) + " fuzzy matches.")
+
+                toMactch = None
+                for record in allRecords:
+                    if record.EnterpriseId == toMatchId:
+                        toMatch = record
+                        break
+
+                for fuzzyMatchedId in fuzzyMatchedIds:
+                    matched = None
+
+                    for record in allRecords:
+                        if record.EnterpriseId == fuzzyMatchedId:
+                            fuzzyMatchRecord = RecordFuzzyMatch(ToMatch = toMatch, FuzzyMatched = record)
+                            matchedRecords.append(fuzzyMatchRecord)
+                            numAppended = numAppended + 1
+                            break
+
+            print("\tadded " + str(numAppended) + " fuzzy matches")
+
+        RecordFuzzyMatch.objects.bulk_create(matchedRecords)
 
 def ImportSets(txtFile, versionNumber):
 
