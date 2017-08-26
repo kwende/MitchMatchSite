@@ -5,6 +5,17 @@
 <h2>Welcome to Ben's Patooter</h2>
 <h3>There are {{ numberLeft }} left</h3>
 
+<script>
+$(document).ready(function(){
+    $("a").click(function (event) {
+        id = event.target.id;
+
+        toggleString = "." + id.toString();
+        $(toggleString).toggle();
+    });
+});
+</script>
+
 <form method="post" action="">
     {% csrf_token %}
     <table border="1">
@@ -30,6 +41,7 @@
                 <td>MRN</td>
                 <td>Alias</td>
                 <td>EnterpriseId</td>
+                <td>Alternatives</td>
             </tr>
         </thead>
         {% for record in coloredRecords %}
@@ -94,15 +106,18 @@
             <td>
                 {{record.EnterpriseId}}
             </td>
+            <td>
+                <a href="#" id="{{record.EnterpriseId}}">Toggle</a>
+            </td>
         </tr>
         {% endfor %}
 
     {% for softmatchGroup in softMatches %}
-        <tr>
+        <tr class="{{softmatchGroup.EnterpriseId}}" style="display:none">
             <td colspan="20">Matches {{softmatchGroup.EnterpriseId}}</td>
         </tr>
         {% for member in softmatchGroup.SoftMatches %}
-        <tr>
+        <tr class="{{softmatchGroup.EnterpriseId}}" style="display:none">
             <td></td>
             <td >
                 {{member.FirstName}}
@@ -165,7 +180,6 @@
         {% endfor %}
     {% endfor %}
     </table>
-    <a href="?showAlternatives&setId={{setId}}" target="_blank" onclick="window.location.href=''">Show Alternatives</a><br/>
     <input type="hidden" value="{{setId}}" name="setId"/>
     <input type="submit" value="Submit" />
     <input type="hidden" value="{{enterpriseIds}}" name="enterpriseIds"/>
