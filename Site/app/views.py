@@ -9,7 +9,7 @@ from datetime import datetime
 from random import randint
 from app.softmatching.algorithms import easiestAgreementCount
 
-from app.models import Record, Set, SetMember
+from app.models import Record, Set, SetMember, RecordFuzzyMatch
 from django.db.models import Count
 from django.core.cache import cache
 
@@ -50,16 +50,10 @@ def findSoftMatches(enterpriseId):
 
     softMatches = []
 
-    baseRecord = Record.objects.get(EnterpriseId = enterpriseId)
+    rootRecord = Record.objects.get(EnterpriseId = enterpriseId)
 
-    if allRecords is None:
-        allRecords = Record.objects.filter(EnterpriseId__gte = 15374761)
-
-    for comparisonRecord in allRecords:
-        if comparisonRecord.EnterpriseId != baseRecord.EnterpriseId:
-            count = easiestAgreementCount(baseRecord, comparisonRecord)
-            if count >= 2:
-              softMatches.append(comparisonRecord)
+    matchedIds = list(RecordFuzzyMatch.objects.filter(ToMatch_id = rootRecord.id).values_list('FuzzyMatched_id', flat = True))
+    softMatches = list(Record.objects.filter(id__in = matchedIds))
 
     return {
         'EnterpriseId' : enterpriseId,
@@ -102,21 +96,16 @@ def home(request):
     
         ids = Set.objects.filter(Checked = False).values_list('id', flat=True)
 
-        setId = 0
-        if "setId" in request.GET:
-            setId = request.GET["setId"]
-        else:
-            randomIndex = randint(0, len(ids) - 1)
-            setId = Set.objects.get(pk = ids[randomIndex]).id
+        randomIndex = randint(0, len(ids) - 1)
+        setId = Set.objects.get(pk = ids[randomIndex]).id
         
         setMembers = SetMember.objects.filter(SetId__id = setId)
 
         enterpriseIdsForSet = ",".join([str(s.RecordId.EnterpriseId) for s in setMembers])
 
         softMatches = []
-        if "showAlternatives" in request.GET:
-            for setMember in setMembers:
-                softMatches.append(findSoftMatches(setMember.RecordId.EnterpriseId))
+        for setMember in setMembers:
+            softMatches.append(findSoftMatches(setMember.RecordId.EnterpriseId))
 
         return render(request,
             'app/index.html',
