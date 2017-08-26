@@ -18,7 +18,7 @@ $(document).ready(function(){
 
 <form method="post" action="">
     {% csrf_token %}
-    <div style="font-size:small">
+    <div style="font-size:smaller">
     <table border="1">
         <thead>
             <tr>
@@ -117,65 +117,65 @@ $(document).ready(function(){
         <tr class="{{softmatchGroup.EnterpriseId}}" style="display:none">
             <td colspan="20">Matches {{softmatchGroup.EnterpriseId}}</td>
         </tr>
-        {% for member in softmatchGroup.SoftMatches %}
+        {% for record in softmatchGroup.SoftMatches %}
         <tr class="{{softmatchGroup.EnterpriseId}}" style="display:none">
             <td></td>
-            <td >
-                {{member.FirstName}}
+             <td style="color:{{record.FirstNameColor}}">
+                {{record.FirstName}}
+            </td>
+            <td style="color:{{record.LastNameColor}}">
+                {{record.LastName}}
+            </td>
+            <td style="color:{{record.MiddleColor}}">
+                {{record.Middle}}
+            </td>
+            <td style="color:{{record.SuffixColor}}">
+                {{record.Suffix}}
+            </td>
+            <td style="color:{{record.DOBColor}}">
+                {{record.DOB}}
+            </td>
+             <td style="color:{{record.GenderColor}}">
+                {{record.Gender}}
+            </td>
+             <td style="color:{{record.SNNColor}}">
+                {{record.SNN}}
+            </td>
+             <td style="color:{{record.Address1Color}}">
+                {{record.Address1}}
+            </td>
+             <td style="color:{{record.Address2Color}}">
+                {{record.Address2}}
+            </td>
+             <td style="color:{{record.ZipColor}}">
+                {{record.Zip}}
+            </td>
+             <td style="color:{{record.MothersMaidenNameColor}}">
+                {{record.MothersMaidenName}}
+            </td>
+             <td style="color:{{record.CityColor}}">
+                {{record.City}}
+            </td>
+             <td style="color:{{record.StateColor}}">
+                {{record.State}}
+            </td>
+             <td style="color:{{record.PhoneColor}}">
+                {{record.Phone}}
+            </td>
+             <td style="color:{{record.Phone2Color}}">
+                {{record.Phone2}}
+            </td>
+             <td style="color:{{record.EmailColor}}">
+                {{record.Email}}
+            </td>
+            <td style="color:{{record.MRNColor}}">
+                {{record.MRN}}
+            </td>
+             <td style="color:{{record.AliasColor}}">
+                {{record.Alias}}
             </td>
             <td>
-                {{member.LastName}}
-            </td>
-            <td>
-                {{member.Middle}}
-            </td>
-            <td>
-                {{member.Suffix}}
-            </td>
-            <td>
-                {{member.DOB}}
-            </td>
-             <td>
-                {{member.Gender}}
-            </td>
-             <td>
-                {{member.SNN}}
-            </td>
-             <td>
-                {{member.Address1}}
-            </td>
-             <td>
-                {{member.Address2}}
-            </td>
-             <td>
-                {{member.Zip}}
-            </td>
-             <td>
-                {{member.MothersMaidenName}}
-            </td>
-             <td>
-                {{member.City}}
-            </td>
-             <td>
-                {{member.State}}
-            </td>
-             <td>
-                {{member.Phone}}
-            </td>
-             <td>
-                {{member.Phone2}}
-            </td>
-             <td>
-                {{member.Email}}
-            </td>
-            <td>
-                {{member.MRN}}
-            </td>
-             <td>
-                {{member.Alias}}
-            </td>
-            <td>
-                {{member.EnterpriseId}}
+                {{record.EnterpriseId}}
             </td>
         </tr>
         {% endfor %}

@@ -5,12 +5,38 @@ import random
 
 def setAlternativeColors(mainRecord, comparisonRecords):
 
-    attributeNames = [a for a in dir(mainRecord) if not a.startswith("_") \
-        and not a.endswith("Color") and not a == "EnterpriseId" and not a == "id"]
+    #    setFuzzyColors("LastName", coloredRecords, app.softmatching.algorithms.fuzzyLastName)
+    #setFuzzyColors("FirstName", coloredRecords, app.softmatching.algorithms.fuzzyFirstName)
+    #setFuzzyColors("DOB", coloredRecords, app.softmatching.algorithms.fuzzyDateEquals)
+    #setFuzzyColors("Address1", coloredRecords, app.softmatching.algorithms.fuzzyAddressMatch)
+    #setFuzzyColors("SSN", coloredRecords, app.softmatching.algorithms.fuzzySSNMatch)
 
     for comparisonRecord in comparisonRecords:
-        for attributeName in attributeNames:
-            getattr(comparisonRecord, attributeName)
+
+        if mainRecord.LastName == comparisonRecord.LastName:
+            comparisonRecord.LastNameColor = "#FF0000"
+        elif app.softmatching.algorithms.fuzzyLastName(mainRecord.LastName, comparisonRecord.LastName):
+            comparisonRecord.LastNameColor = "#00FF00"
+
+        if mainRecord.FirstName == comparisonRecord.FirstName:
+            comparisonRecord.LastNameColor = "#FF0000"
+        elif app.softmatching.algorithms.fuzzyFirstName(mainRecord.FirstName, comparisonRecord.FirstName):
+            comparisonRecord.FirstNameColor = "#00FF00"
+
+        if mainRecord.DOB == comparisonRecord.DOB:
+            comparisonRecord.LastNameColor = "#FF0000"
+        elif app.softmatching.algorithms.fuzzyDateEquals(mainRecord.DOB, comparisonRecord.DOB):
+            comparisonRecord.DOBColor = "#00FF00"
+
+        if mainRecord.Address1 == comparisonRecord.Address1:
+            comparisonRecord.LastNameColor = "#FF0000"
+        elif app.softmatching.algorithms.fuzzyAddressMatch(mainRecord.Address1, comparisonRecord.Address1):
+            comparisonRecord.Address1Color = "#00FF00"
+
+        if mainRecord.SSN == comparisonRecord.SSN:
+            comparisonRecord.LastNameColor = "#FF0000"
+        elif app.softmatching.algorithms.fuzzySSNMatch(mainRecord.SSN, comparisonRecord.SSN):
+            comparisonRecord.SSNColor = "#00FF00"
 
     return
 

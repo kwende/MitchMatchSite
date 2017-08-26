@@ -14,7 +14,7 @@ from django.db.models import Count
 from django.core.cache import cache
 
 from app.displaymodels import ColoredRecord
-from app.softmatching.coloring import buildColoredRecords, recordToColoredRecordType
+from app.softmatching.coloring import buildColoredRecords, recordToColoredRecordType, setAlternativeColors
 
 import random
 
@@ -105,7 +105,9 @@ def home(request):
 
         softMatches = []
         for setMember in setMembers:
-            softMatches.append(findSoftMatches(setMember.RecordId.EnterpriseId))
+            softMatchesForEnterpriseId = findSoftMatches(setMember.RecordId.EnterpriseId)
+            setAlternativeColors(setMember.RecordId, softMatchesForEnterpriseId["SoftMatches"])
+            softMatches.append(softMatchesForEnterpriseId)
 
         return render(request,
             'app/index.html',
