@@ -14,7 +14,7 @@ from django.db.models import Count
 from django.core.cache import cache
 
 from app.displaymodels import ColoredRecord
-from app.softmatching.coloring import buildColoredRecords
+from app.softmatching.coloring import buildColoredRecords, recordToColoredRecordType
 
 import random
 
@@ -53,7 +53,7 @@ def findSoftMatches(enterpriseId):
     rootRecord = Record.objects.get(EnterpriseId = enterpriseId)
 
     matchedIds = list(RecordFuzzyMatch.objects.filter(ToMatch_id = rootRecord.id).values_list('FuzzyMatched_id', flat = True))
-    softMatches = list(Record.objects.filter(id__in = matchedIds))
+    softMatches = list([recordToColoredRecordType(a) for a in Record.objects.filter(id__in = matchedIds)])
 
     return {
         'EnterpriseId' : enterpriseId,

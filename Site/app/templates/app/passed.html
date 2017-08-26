@@ -1,118 +1,28 @@
-{% extends "app/layout.html" %}
-
-{% block content %}
-
-<h2>Welcome to Josh's Patooter</h2>
-
-    <table border="1">
-        <thead>
-            <tr>
-                <td>First</td>
-                <td>Last</td>
-                <td>Middle</td>
-                <td>Suffix</td>
-                <td>DOB</td>
-                <td>Gender</td>
-                <td>SSN</td>
-                <td>Address1</td>
-                <td>Address2</td>
-                <td>Zip</td>
-                <td>MothersMaidenName</td>
-                <td>City</td>
-                <td>State</td>
-                <td>Phone</td>
-                <td>Phone2</td>
-                <td>Email</td>
-                <td>MRN</td>
-                <td>Alias</td>
-                <td>EnterpriseId</td>
-            </tr>
-        </thead>
+<html>
+<head><title></title></head>
+<body>
         {% for set in passedSets %}
             {% for record in set %}
-            <tr>
-                <td>
-                    {{record.RecordId.FirstName}}
-                </td>
-                <td>
-                    {{record.RecordId.LastName}}
-                </td>
-                 <td>
-                    {{record.RecordId.Middle}}
-                </td>
-                 <td>
-                    {{record.RecordId.Suffix}}
-                </td>
-                <td>
-                    {{record.RecordId.DOB}}
-                </td>
-                  <td>
-                    {{record.RecordId.Gender}}
-                </td>
-                  <td>
-                    {{record.RecordId.SNN}}
-                </td>
-                 <td>
-                    {{record.RecordId.Address1}}
-                </td>
-                 <td>
-                    {{record.RecordId.Address2}}
-                </td>
-                  <td>
-                    {{record.RecordId.Zip}}
-                </td>
-                  <td>
-                    {{record.RecordId.MothersMaidenName}}
-                </td>
-                  <td>
-                    {{record.RecordId.City}}
-                </td>
-                  <td>
-                    {{record.RecordId.State}}
-                </td>
-                  <td>
-                    {{record.RecordId.Phone}}
-                </td>
-                 <td>
-                    {{record.RecordId.Phone2}}
-                </td>
-                  <td>
-                    {{record.RecordId.Email}}
-                </td>
-                 <td>
-                    {{record.RecordId.MRN}}
-                </td>
-                 <td>
+                    {{record.RecordId.FirstName}},
+                    {{record.RecordId.Middle}},
+                    {{record.RecordId.LastName}},
+                    {{record.RecordId.Suffix}},
+                    {{record.RecordId.Gender}},
+                    {{record.RecordId.SNN}},
+                    {{record.RecordId.DOB}},
+                    {{record.RecordId.Phone}},
+                    {{record.RecordId.Phone2}},
+                    {{record.RecordId.Address1}},
+                    {{record.RecordId.Address2}},
+                    {{record.RecordId.City}},
+                    {{record.RecordId.State}},
+                    {{record.RecordId.Zip}},
+                    {{record.RecordId.MothersMaidenName}},
+                    {{record.RecordId.Email}},
                     {{record.RecordId.Alias}}
-                </td>
-                <td>
-                    {{record.RecordId.EnterpriseId}}
-                </td>
-            </tr>
+                    <br/>
             {% endfor %}
-                <tr>
-                    <td style="background-color:black;height:10px;"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                    <td style="background-color:black"></td>
-                </tr>
+        <br/>
         {% endfor %}
-        
-    </table>
-
-{% endblock %}
+    </body>
+</html>

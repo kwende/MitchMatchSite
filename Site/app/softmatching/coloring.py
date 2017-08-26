@@ -3,6 +3,17 @@ from app.models import Record, Set, SetMember
 import app.softmatching.algorithms 
 import random
 
+def setAlternativeColors(mainRecord, comparisonRecords):
+
+    attributeNames = [a for a in dir(mainRecord) if not a.startswith("_") \
+        and not a.endswith("Color") and not a == "EnterpriseId" and not a == "id"]
+
+    for comparisonRecord in comparisonRecords:
+        for attributeName in attributeNames:
+            getattr(comparisonRecord, attributeName)
+
+    return
+
 def setFuzzyColors(attributeName, coloredRecords, fuzzyFunction):
     attributeColorName = attributeName + "Color"
 
@@ -35,37 +46,41 @@ def setColors(attributeName, coloredRecords):
             if matchFound:
                 colorIndex = colorIndex + 1
 
+def recordToColoredRecordType(record):
+    coloredRecord = ColoredRecord()
+
+    #coloredRecord.id = setMember.id
+    coloredRecord.EnterpriseId = record.EnterpriseId
+    coloredRecord.LastName = record.LastName
+    coloredRecord.FirstName = record.FirstName
+    coloredRecord.MiddleName = record.MiddleName
+    coloredRecord.Suffix = record.Suffix
+    coloredRecord.DOB = record.DOB
+    coloredRecord.Gender = record.Gender
+    coloredRecord.SSN = record.SSN
+    coloredRecord.Address1 = record.Address1
+    coloredRecord.Address2 = record.Address2
+    coloredRecord.Zip = record.Zip
+    coloredRecord.MothersMaidenName = record.MothersMaidenName
+    coloredRecord.MRN = record.MRN
+    coloredRecord.City = record.City
+    coloredRecord.State = record.State
+    coloredRecord.Phone = record.Phone
+    coloredRecord.Phone2 = record.Phone2
+    coloredRecord.Email = record.Email
+    coloredRecord.Alias = record.Alias
+
+    return coloredRecord; 
+
 def buildColoredRecords(setMembers):
 
     coloredRecords = []
     for setMember in setMembers:
-        coloredRecord = ColoredRecord()
 
+        coloredRecord = recordToColoredRecordType(setMember.RecordId)
         coloredRecord.id = setMember.id
-        coloredRecord.EnterpriseId = setMember.RecordId.EnterpriseId
-        coloredRecord.LastName = setMember.RecordId.LastName
-        coloredRecord.FirstName = setMember.RecordId.FirstName
-        coloredRecord.MiddleName = setMember.RecordId.MiddleName
-        coloredRecord.Suffix = setMember.RecordId.Suffix
-        coloredRecord.DOB = setMember.RecordId.DOB
-        coloredRecord.Gender = setMember.RecordId.Gender
-        coloredRecord.SSN = setMember.RecordId.SSN
-        coloredRecord.Address1 = setMember.RecordId.Address1
-        coloredRecord.Address2 = setMember.RecordId.Address2
-        coloredRecord.Zip = setMember.RecordId.Zip
-        coloredRecord.MothersMaidenName = setMember.RecordId.MothersMaidenName
-        coloredRecord.MRN = setMember.RecordId.MRN
-        coloredRecord.City = setMember.RecordId.City
-        coloredRecord.State = setMember.RecordId.State
-        coloredRecord.Phone = setMember.RecordId.Phone
-        coloredRecord.Phone2 = setMember.RecordId.Phone2
-        coloredRecord.Email = setMember.RecordId.Email
-        coloredRecord.Alias = setMember.RecordId.Alias
-
         coloredRecords.append(coloredRecord)
         
-    
-
     attributeNames = [a for a in dir(coloredRecords[0]) if not a.startswith("_") and not a.endswith("Color") and not a == "EnterpriseId" and not a == "id"]
 
     colorStrings = ["#FF0000", "#00FF00", "#0000FF"]
