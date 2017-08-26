@@ -13,29 +13,31 @@ def setAlternativeColors(mainRecord, comparisonRecords):
 
     for comparisonRecord in comparisonRecords:
 
-        if mainRecord.LastName == comparisonRecord.LastName:
-            comparisonRecord.LastNameColor = "#FF0000"
-        elif app.softmatching.algorithms.fuzzyLastName(mainRecord.LastName, comparisonRecord.LastName):
+        attributeNames = [a for a in dir(comparisonRecord) if not a.startswith("_") \
+              and not a.endswith("Color") and not a == "EnterpriseId" and not a == "id"]
+
+        for attributeName in attributeNames:
+            if getattr(comparisonRecord, attributeName) == getattr(mainRecord, attributeName):
+                setattr(comparisonRecord, attributeName + "Color", "#FF0000")
+
+        if app.softmatching.algorithms.fuzzyLastName(mainRecord.LastName, comparisonRecord.LastName) and \
+            comparisonRecord.LastNameColor == "":
             comparisonRecord.LastNameColor = "#00FF00"
 
-        if mainRecord.FirstName == comparisonRecord.FirstName:
-            comparisonRecord.FirstNameColor = "#FF0000"
-        elif app.softmatching.algorithms.fuzzyFirstName(mainRecord.FirstName, comparisonRecord.FirstName):
+        if app.softmatching.algorithms.fuzzyFirstName(mainRecord.FirstName, comparisonRecord.FirstName) and \
+            comparisonRecord.FirstNameColor == "":
             comparisonRecord.FirstNameColor = "#00FF00"
 
-        if mainRecord.DOB == comparisonRecord.DOB:
-            comparisonRecord.DOBColor = "#FF0000"
-        elif app.softmatching.algorithms.fuzzyDateEquals(mainRecord.DOB, comparisonRecord.DOB):
+        if app.softmatching.algorithms.fuzzyDateEquals(mainRecord.DOB, comparisonRecord.DOB) and \
+            comparisonRecord.DOBColor == "":
             comparisonRecord.DOBColor = "#00FF00"
 
-        if mainRecord.Address1 == comparisonRecord.Address1:
-            comparisonRecord.Address1Color = "#FF0000"
-        elif app.softmatching.algorithms.fuzzyAddressMatch(mainRecord.Address1, comparisonRecord.Address1):
+        if app.softmatching.algorithms.fuzzyAddressMatch(mainRecord.Address1, comparisonRecord.Address1) and \
+            comparisonRecord.Address1Color == "":
             comparisonRecord.Address1Color = "#00FF00"
 
-        if mainRecord.SSN == comparisonRecord.SSN:
-            comparisonRecord.SSNColor = "#FF0000"
-        elif app.softmatching.algorithms.fuzzySSNMatch(mainRecord.SSN, comparisonRecord.SSN):
+        if app.softmatching.algorithms.fuzzySSNMatch(mainRecord.SSN, comparisonRecord.SSN) and \
+            comparisonRecord.SSNColor == "":
             comparisonRecord.SSNColor = "#00FF00"
 
     return
