@@ -19,22 +19,22 @@ def setAlternativeColors(mainRecord, comparisonRecords):
             comparisonRecord.LastNameColor = "#00FF00"
 
         if mainRecord.FirstName == comparisonRecord.FirstName:
-            comparisonRecord.LastNameColor = "#FF0000"
+            comparisonRecord.FirstNameColor = "#FF0000"
         elif app.softmatching.algorithms.fuzzyFirstName(mainRecord.FirstName, comparisonRecord.FirstName):
             comparisonRecord.FirstNameColor = "#00FF00"
 
         if mainRecord.DOB == comparisonRecord.DOB:
-            comparisonRecord.LastNameColor = "#FF0000"
+            comparisonRecord.DOBColor = "#FF0000"
         elif app.softmatching.algorithms.fuzzyDateEquals(mainRecord.DOB, comparisonRecord.DOB):
             comparisonRecord.DOBColor = "#00FF00"
 
         if mainRecord.Address1 == comparisonRecord.Address1:
-            comparisonRecord.LastNameColor = "#FF0000"
+            comparisonRecord.Address1Color = "#FF0000"
         elif app.softmatching.algorithms.fuzzyAddressMatch(mainRecord.Address1, comparisonRecord.Address1):
             comparisonRecord.Address1Color = "#00FF00"
 
         if mainRecord.SSN == comparisonRecord.SSN:
-            comparisonRecord.LastNameColor = "#FF0000"
+            comparisonRecord.SSNColor = "#FF0000"
         elif app.softmatching.algorithms.fuzzySSNMatch(mainRecord.SSN, comparisonRecord.SSN):
             comparisonRecord.SSNColor = "#00FF00"
 
