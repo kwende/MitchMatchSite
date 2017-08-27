@@ -35,7 +35,7 @@ def setAlternativeColors(mainRecord, comparisonRecords):
         if app.softmatching.algorithms.fuzzyAddressMatch(mainRecord.Address1, comparisonRecord.Address1) and \
             comparisonRecord.Address1Color == "":
             comparisonRecord.Address1Color = "#00FF00"
-
+ 
         if app.softmatching.algorithms.fuzzySSNMatch(mainRecord.SSN, comparisonRecord.SSN) and \
             comparisonRecord.SSNColor == "":
             comparisonRecord.SSNColor = "#00FF00"
