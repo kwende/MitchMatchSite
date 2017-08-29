@@ -9,12 +9,12 @@ from datetime import datetime
 from random import randint
 from app.softmatching.algorithms import easiestAgreementCount
 
-from app.models import Record, Set, SetMember, RecordFuzzyMatch
+from app.models import Record, Set, SetMember, RecordFuzzyMatch, MLFoundExtraSetMember
 from django.db.models import Count
 from django.core.cache import cache
 
 from app.displaymodels import ColoredRecord
-from app.softmatching.coloring import buildColoredRecords, recordToColoredRecordType, setAlternativeColors
+from app.softmatching.coloring import buildColoredRecords, recordToColoredRecordType, setAlternativeColors, recordsToColoredRecordsType
 
 import random
 
@@ -59,6 +59,54 @@ def findSoftMatches(enterpriseId):
         'EnterpriseId' : enterpriseId,
         'SoftMatches' : softMatches
         }
+
+def showMLExtras(request):
+
+    if request.method == "POST":
+        all = [int(a) for a in request.POST['foundExtraIds'].replace('[','').replace(']','').split(',')]
+        toFixIds = [int(f.replace('member_','')) for f in request.POST if f.startswith('member_')]
+
+        allRecords = MLFoundExtraSetMember.objects.filter(id__in = all)
+
+        for eachRecord in allRecords:
+            if eachRecord.CorrespondingRecord.id in toFixIds:
+                eachRecord.ReviewedStatus = 2
+                eachRecord.save()
+            else: 
+                eachRecord.ReviewedStatus = 1
+                eachRecord.save()
+
+        return HttpResponseRedirect("/mlextras.html")
+    elif request.method == "GET":
+        notReviewed = MLFoundExtraSetMember.objects.filter(ReviewedStatus = 0)
+        randomIndex = randint(0, len(notReviewed) - 1)
+        randomRecord = notReviewed[randomIndex]
+
+        theRandomRecordsSet = Set.objects.get(pk = randomRecord.CorrespondingSet.id)
+        setMembersForSet = SetMember.objects.filter(SetId_id = theRandomRecordsSet.id)
+
+        recordIdsForSetMembers = [a.RecordId.id for a in setMembersForSet]
+        recordsForSetMembers = Record.objects.filter(id__in = recordIdsForSetMembers)
+
+        mlFoundExtras = MLFoundExtraSetMember.objects.filter(CorrespondingSet = theRandomRecordsSet.id)
+        recordIdsForExtras = [a.CorrespondingRecord.id for a in mlFoundExtras]
+        recordsForExtras = Record.objects.filter(id__in = recordIdsForExtras)
+
+        recordsForSetMembers = recordsToColoredRecordsType(recordsForSetMembers)
+        recordsForExtras = recordsToColoredRecordsType(recordsForExtras)
+
+        for recordForSetMember in recordsForSetMembers:
+            setAlternativeColors(recordForSetMember, recordsForExtras)
+
+        return render(request, 
+            'app/mlextras.html',
+            {
+                'numberLeft' : len(notReviewed),
+                'setId' : theRandomRecordsSet.id,
+                'setMembers':recordsForSetMembers,
+                'extras':recordsForExtras,
+                'foundExtraIds':[a.id for a in mlFoundExtras]
+            })
 
 def showPassed(request):
 
