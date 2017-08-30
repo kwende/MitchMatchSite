@@ -41,3 +41,7 @@ class RecordFuzzyMatch(models.Model):
     ToMatch = models.ForeignKey(Record,  on_delete=models.CASCADE, related_name='tomatch_record_set')
     FuzzyMatched = models.ForeignKey(Record,  on_delete=models.CASCADE, related_name='fuzzymatched_record_set')
 
+class MLFoundExtraSetMember(models.Model):
+    CorrespondingSet = models.ForeignKey(Set, on_delete=models.CASCADE, related_name='mlset_member')
+    CorrespondingRecord = models.ForeignKey(Record, on_delete=models.CASCADE, related_name='mlset_record')
+    ReviewedStatus = models.IntegerField()

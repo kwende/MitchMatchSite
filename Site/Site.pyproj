@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\alternatives.html" />
+    <Content Include="app\templates\app\mlextras.html" />
     <Content Include="app\templates\app\passed.html" />
     <Content Include="NOTES.txt">
       <SubType>Code</SubType>

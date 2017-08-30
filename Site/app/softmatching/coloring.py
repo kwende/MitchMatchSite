@@ -74,6 +74,15 @@ def setColors(attributeName, coloredRecords):
             if matchFound:
                 colorIndex = colorIndex + 1
 
+def recordsToColoredRecordsType(records):
+    ret = []
+    for record in records:
+        coloredRecord = recordToColoredRecordType(record)
+        coloredRecord.id = record.id
+        ret.append(coloredRecord)
+
+    return ret
+
 def recordToColoredRecordType(record):
     coloredRecord = ColoredRecord()
 

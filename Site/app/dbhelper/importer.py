@@ -1,5 +1,32 @@
 import csv
-from app.models import Record, Set, SetMember, RecordFuzzyMatch
+from app.models import Record, Set, SetMember, RecordFuzzyMatch, MLFoundExtraSetMember
+import re
+
+def ImportMLFalseNegativeSearchResults(txtFile):
+    with open(txtFile) as input:
+
+        lines = input.readlines()
+        for line in lines:
+            print('working on line ' + line)
+            bits = re.findall("\[[0-9,]*\]", line)
+
+            set = bits[0].replace('[','').replace(']','').split(',')
+            extras = [a for a in bits[1].replace('[','').replace(']','').split(',') if len(a) > 0]
+
+            if len(extras) > 0:
+                print('\tworking on ' + bits[1])
+                sampleRecord = Record.objects.filter(EnterpriseId = int(set[0]))
+                sampleRecordSetMember = SetMember.objects.filter(RecordId_id = sampleRecord[0].id)
+                correspondingSet = Set.objects.get(pk = sampleRecordSetMember[0].SetId_id)
+
+                for extra in extras:
+                    print("\t\tworking on " + extra)
+                    enterpriseId = int(extra)
+                    correspondingRecord = Record.objects.filter(EnterpriseId = enterpriseId)
+
+                    extraMLFound = MLFoundExtraSetMember(CorrespondingSet = correspondingSet, CorrespondingRecord = correspondingRecord[0], ReviewedStatus = 0)
+                    extraMLFound.save()
+
 
 def ImportAutoPasses(txtFile):
     

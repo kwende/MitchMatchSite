@@ -18,7 +18,8 @@ urlpatterns = [
     # Examples:
     url(r'^$', app.views.home, name='home'),
     url(r'^alternatives.html', app.views.findAlternatives, name='alternatives'),
-    url(r'^passed.html', app.views.showPassed, name='alternatives')
+    url(r'^passed.html', app.views.showPassed, name='alternatives'),
+    url(r'^mlextras.html', app.views.showMLExtras, name='mlextras')
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

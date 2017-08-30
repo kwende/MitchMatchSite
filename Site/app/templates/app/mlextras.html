@@ -1,0 +1,211 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>Possible False Negatives Discovered by Mr. Decision Tree</h2>
+<h3>There are {{ numberLeft }} left</h3>
+
+<h3>Set {{setId}}</h3>
+
+<form method="post" action="">
+    {% csrf_token %}
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Should Match</td>
+                <td>First</td>
+                <td>Last</td>
+                <td>Middle</td>
+                <td>Suffix</td>
+                <td>DOB</td>
+                <td>Gender</td>
+                <td>SSN</td>
+                <td>Address1</td>
+                <td>Address2</td>
+                <td>Zip</td>
+                <td>MothersMaidenName</td>
+                <td>City</td>
+                <td>State</td>
+                <td>Phone</td>
+                <td>Phone2</td>
+                <td>Email</td>
+                <td>MRN</td>
+                <td>Alias</td>
+                <td>EnterpriseId</td>
+            </tr>
+        </thead>
+        {% for record in setMembers %}
+            <tr>
+                <td>
+                    YES
+                </td>
+                <td>
+                    {{record.FirstName}}
+                </td>
+                <td>
+                    {{record.LastName}}
+                </td>
+                <td>
+                    {{record.Middle}}
+                </td>
+                <td>
+                    {{record.Suffix}}
+                </td>
+                <td>
+                    {{record.DOB}}
+                </td>
+                 <td>
+                    {{record.Gender}}
+                </td>
+                 <td>
+                    {{record.SNN}}
+                </td>
+                 <td>
+                    {{record.Address1}}
+                </td>
+                 <td>
+                    {{record.Address2}}
+                </td>
+                 <td>
+                    {{record.Zip}}
+                </td>
+                 <td>
+                    {{record.MothersMaidenName}}
+                </td>
+                 <td>
+                    {{record.City}}
+                </td>
+                 <td>
+                    {{record.State}}
+                </td>
+                 <td>
+                    {{record.Phone}}
+                </td>
+                 <td>
+                    {{record.Phone2}}
+                </td>
+                 <td>
+                    {{record.Email}}
+                </td>
+                <td>
+                    {{record.MRN}}
+                </td>
+                 <td>
+                    {{record.Alias}}
+                </td>
+                <td>
+                    {{record.EnterpriseId}}
+                </td>
+            </tr>
+        {% endfor %}
+                <tr style="background:black;">
+                <td style="height:10px;">
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                 <td>
+                </td>
+                <td>
+                </td>
+                 <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+        {% for record in extras %}
+            <tr>
+                <td>
+                    <input type="checkbox" name="member_{{record.id}}" value="{{record.id}}"/>
+                </td>
+                <td style="color:{{record.FirstNameColor}}">
+                    {{record.FirstName}}
+                </td>
+                <td style="color:{{record.LastNameColor}}">
+                    {{record.LastName}}
+                </td>
+                <td style="color:{{record.MiddleColor}}">
+                    {{record.Middle}}
+                </td>
+                <td style="color:{{record.SuffixColor}}">
+                    {{record.Suffix}}
+                </td>
+                <td style="color:{{record.DOBColor}}">
+                    {{record.DOB}}
+                </td>
+                 <td style="color:{{record.GenderColor}}">
+                    {{record.Gender}}
+                </td>
+                 <td style="color:{{record.SNNColor}}">
+                    {{record.SNN}}
+                </td>
+                 <td style="color:{{record.Address1Color}}">
+                    {{record.Address1}}
+                </td>
+                 <td style="color:{{record.Address2Color}}">
+                    {{record.Address2}}
+                </td>
+                 <td style="color:{{record.ZipColor}}">
+                    {{record.Zip}}
+                </td>
+                 <td style="color:{{record.MothersMaidenNameColor}}">
+                    {{record.MothersMaidenName}}
+                </td>
+                 <td style="color:{{record.CityColor}}">
+                    {{record.City}}
+                </td>
+                 <td style="color:{{record.StateColor}}">
+                    {{record.State}}
+                </td>
+                 <td style="color:{{record.PhoneColor}}">
+                    {{record.Phone}}
+                </td>
+                 <td style="color:{{record.Phone2Color}}">
+                    {{record.Phone2}}
+                </td>
+                 <td style="color:{{record.EmailColor}}">
+                    {{record.Email}}
+                </td>
+                <td style="color:{{record.MRNColor}}">
+                    {{record.MRN}}
+                </td>
+                 <td style="color:{{record.AliasColor}}">
+                    {{record.Alias}}
+                </td>
+                <td>
+                    {{record.EnterpriseId}}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <input type="hidden" value="{{foundExtraIds}}" name="foundExtraIds"/>
+    <input type="submit" value="Submit" />
+</form>
+{% endblock %}
