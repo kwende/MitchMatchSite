@@ -7,6 +7,7 @@
 
 <h3>Set {{setId}}</h3>
 
+<div style="font-size: smaller">
 <form method="post" action="">
     {% csrf_token %}
     <table border="1">
@@ -98,8 +99,8 @@
                 </td>
             </tr>
         {% endfor %}
-                <tr style="background:black;">
-                <td style="height:10px;">
+                <tr style="        background: black;">
+                <td style="        height: 10px;">
                 </td>
                 <td>
                 </td>
@@ -208,4 +209,5 @@
     <input type="hidden" value="{{foundExtraIds}}" name="foundExtraIds"/>
     <input type="submit" value="Submit" />
 </form>
+</div>
 {% endblock %}
