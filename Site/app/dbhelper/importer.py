@@ -1,6 +1,42 @@
 import csv
 from app.models import Record, Set, SetMember, RecordFuzzyMatch
 
+def ImportAutoPasses(txtFile):
+    
+    with open(txtFile) as input:
+        allLines = input.readlines()
+
+        for line in allLines:
+            print("Working on line " + line)
+            # turn them into integers
+            bits = sorted([int(a) for a in line.split(',')])
+
+            # sanity check. make sure these items do make up a complete set
+            recordsMatching = Record.objects.filter(EnterpriseId__in = bits)
+            print("\tFound " + str(len(recordsMatching)) + " matching records.")
+            baseSetMember = SetMember.objects.filter(RecordId__id = recordsMatching[0].id)
+
+            if len(baseSetMember) > 0:
+                print("\tFound " + str(len(baseSetMember)) + " base set members")
+
+                shouldEqualBits = \
+                    sorted([a.RecordId.EnterpriseId for a in SetMember.objects.filter(SetId__id = baseSetMember[0].SetId_id)])
+
+                allGood = True
+                for i in range(0, len(shouldEqualBits)):
+                    if bits[i] != shouldEqualBits[i]:
+                        print("Found a mismatch!!!")
+
+                if allGood:
+                    setMembers = SetMember.objects.filter(SetId__id = baseSetMember[0].SetId_id)
+                    for setMember in setMembers:
+                        setMember.IsGood = True
+                        setMember.save()
+                    set = Set.objects.get(pk = baseSetMember[0].SetId_id)   
+                    set.Checked = True
+                    set.AutoPassed = True
+                    set.save()
+
 def ImportAlternativeMatches(txtFile):
 
     with open(txtFile) as input:
