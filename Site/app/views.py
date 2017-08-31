@@ -10,7 +10,7 @@ from random import randint
 from app.softmatching.algorithms import easiestAgreementCount
 
 from app.models import Record, Set, SetMember, RecordFuzzyMatch, MLFoundExtraSetMember
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.core.cache import cache
 
 from app.displaymodels import ColoredRecord
@@ -110,7 +110,7 @@ def showMLExtras(request):
 
 def showPassed(request):
 
-    allCheckedSetIds = Set.objects.filter(Checked = True, AutoPassed != True).values_list('id', flat = True)
+    allCheckedSetIds = Set.objects.filter(Checked=True).exclude(AutoPassed =True).values_list('id', flat = True)
 
     setOfSets = []
 
