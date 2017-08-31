@@ -82,7 +82,7 @@ def showMLExtras(request):
         randomIndex = randint(0, len(notReviewed) - 1)
         randomRecord = notReviewed[randomIndex]
 
-        theRandomRecordsSet = Set.objects.get(pk = 545)#randomRecord.CorrespondingSet.id)
+        theRandomRecordsSet = Set.objects.get(pk = randomRecord.CorrespondingSet.id)
         setMembersForSet = SetMember.objects.filter(SetId_id = theRandomRecordsSet.id)
 
         recordIdsForSetMembers = [a.RecordId.id for a in setMembersForSet]
