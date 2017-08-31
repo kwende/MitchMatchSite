@@ -110,7 +110,7 @@ def showMLExtras(request):
 
 def showPassed(request):
 
-    allCheckedSetIds = Set.objects.filter(Checked = True).values_list('id', flat = True)
+    allCheckedSetIds = Set.objects.filter(Checked = True, AutoPassed != True).values_list('id', flat = True)
 
     setOfSets = []
 
