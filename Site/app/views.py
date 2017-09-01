@@ -14,12 +14,38 @@ from django.db.models import Count, Q
 from django.core.cache import cache
 
 from app.displaymodels import ColoredRecord
-from app.softmatching.coloring import buildColoredRecords, recordToColoredRecordType, setAlternativeColors, recordsToColoredRecordsType
+from app.softmatching.coloring import buildColoredRecords, recordToColoredRecordType, \
+    setAlternativeColors, recordsToColoredRecordsType
 
 import random
 
 allRecords = None
 whichId = 0
+
+def findMLRejections(request):
+    allRecordsWhoArentMatches = MLFoundExtraSetMember.objects.filter(ReviewedStatus = 1)
+
+    pairs = []
+
+    if len(allRecordsWhoArentMatches) > 0:
+        setIds = [a.CorrespondingSet.id for a in allRecordsWhoArentMatches]
+
+        for setId in setIds:
+            
+            setMembers = SetMember.objects.filter(SetId__id = setId)
+            rejectedRecords = [a.CorrespondingRecord for a in allRecordsWhoArentMatches if a.CorrespondingSet.id == setId]
+            recordIdsOfSetMembers = [a.RecordId.id for a in setMembers]
+
+            recordsInSet = Record.objects.filter(id__in = recordIdsOfSetMembers)
+
+            for record in recordsInSet:
+                for rejectedRecord in rejectedRecords:
+                    pairs.append([record, rejectedRecord])
+
+    return render(request, 'app/rejected.html',
+                  {
+                      'rejections' : pairs
+                  })
 
 def findAlternatives(request):
     global allRecords

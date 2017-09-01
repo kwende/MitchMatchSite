@@ -1,0 +1,30 @@
+<html>
+<head><title></title></head>
+<body>
+        {% for rejected in rejections %}
+            {% for record in rejected %}
+                    {{record.FirstName}},
+                    {{record.Middle}},
+                    {{record.LastName}},
+                    {{record.Suffix}},
+                    {{record.Gender}},
+                    {{record.SNN}},
+                    {{record.DOB}},
+                    {{record.Phone}},
+                    {{record.Phone2}},
+                    {{record.Address1}},
+                    {{record.Address2}},
+                    {{record.City}},
+                    {{record.State}},
+                    {{record.Zip}},
+                    {{record.MothersMaidenName}},
+                    {{record.Email}},
+                    {{record.MRN}},
+                    {{record.EnterpriseId}},
+                    {{record.Alias}}
+                    <br/>
+            {% endfor %}
+        <br/>
+        {% endfor %}
+    </body>
+</html>
