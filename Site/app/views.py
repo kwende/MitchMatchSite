@@ -24,11 +24,12 @@ whichId = 0
 
 def findMLRejections(request):
     allRecordsWhoArentMatches = MLFoundExtraSetMember.objects.filter(ReviewedStatus = 1)
+    #MLFoundExtraSetMember.objects.filter(id = 5067)#
 
     pairs = []
 
     if len(allRecordsWhoArentMatches) > 0:
-        setIds = [a.CorrespondingSet.id for a in allRecordsWhoArentMatches]
+        setIds = list(set([a.CorrespondingSet.id for a in allRecordsWhoArentMatches]))
 
         for setId in setIds:
             
