@@ -31,8 +31,9 @@
                 <td>Phone2</td>
                 <td>Email</td>
                 <td>MRN</td>
-                <td>Alias</td>
                 <td>EnterpriseId</td>
+                <td>Alias</td>
+
             </tr>
         </thead>
         {% for record in setMembers %}
@@ -91,11 +92,11 @@
                 <td>
                     {{record.MRN}}
                 </td>
-                 <td>
-                    {{record.Alias}}
-                </td>
                 <td>
                     {{record.EnterpriseId}}
+                </td>
+                <td>
+                    {{record.Alias}}
                 </td>
             </tr>
         {% endfor %}
@@ -197,11 +198,11 @@
                 <td style="color:{{record.MRNColor}}">
                     {{record.MRN}}
                 </td>
-                 <td style="color:{{record.AliasColor}}">
-                    {{record.Alias}}
-                </td>
                 <td>
                     {{record.EnterpriseId}}
+                </td>
+                <td style="color:{{record.AliasColor}}">
+                    {{record.Alias}}
                 </td>
             </tr>
         {% endfor %}
@@ -210,4 +211,17 @@
     <input type="submit" value="Submit" />
 </form>
 </div>
+
+<p>For importing:</p>
+{% for record in setMembers %}
+{{record.FirstName}},{{record.LastName}},{{record.Middle}},{{record.Suffix}},{{record.DOB}},{{record.Gender}}
+,{{record.SNN}},{{record.Address1}},{{record.Address2}},{{record.Zip}},{{record.MothersMaidenName}},{{record.City}}
+,{{record.State}},{{record.Phone}},{{record.Phone2}},{{record.Email}},{{record.MRN}},{{record.EnterpriseId}},{{record.Alias}}<br/>
+{% endfor %}
+<br/>
+{% for record in extras %}
+{{record.FirstName}},{{record.LastName}},{{record.Middle}},{{record.Suffix}},{{record.DOB}},{{record.Gender}}
+,{{record.SNN}},{{record.Address1}},{{record.Address2}},{{record.Zip}},{{record.MothersMaidenName}},{{record.City}}
+,{{record.State}},{{record.Phone}},{{record.Phone2}},{{record.Email}},{{record.MRN}},{{record.EnterpriseId}},{{record.Alias}}<br/>
+{% endfor %}
 {% endblock %}
