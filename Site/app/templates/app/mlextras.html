@@ -48,7 +48,7 @@
                     {{record.LastName}}
                 </td>
                 <td>
-                    {{record.Middle}}
+                    {{record.MiddleName}}
                 </td>
                 <td>
                     {{record.Suffix}}
@@ -154,7 +154,7 @@
                     {{record.LastName}}
                 </td>
                 <td style="color:{{record.MiddleColor}}">
-                    {{record.Middle}}
+                    {{record.MiddleName}}
                 </td>
                 <td style="color:{{record.SuffixColor}}">
                     {{record.Suffix}}
@@ -214,13 +214,13 @@
 
 <p>For importing:</p>
 {% for record in setMembers %}
-{{record.FirstName}},{{record.Middle}},{{record.LastName}},{{record.Suffix}},{{record.Gender}},{{record.SNN}},{{record.DOB}},
+{{record.FirstName}},{{record.MiddleName}},{{record.LastName}},{{record.Suffix}},{{record.Gender}},{{record.SNN}},{{record.DOB}},
 {{record.Phone}},{{record.Phone2}},{{record.Address1}},{{record.Address2}},{{record.City}},{{record.State}},{{record.Zip}},
 {{record.MothersMaidenName}},{{record.Email}},{{record.MRN}},{{record.EnterpriseId}},{{record.Alias}}<br/>
 {% endfor %}
 <br/>
 {% for record in extras %}
-{{record.FirstName}},{{record.Middle}},{{record.LastName}},{{record.Suffix}},{{record.Gender}},{{record.SNN}},{{record.DOB}},
+{{record.FirstName}},{{record.MiddleName}},{{record.LastName}},{{record.Suffix}},{{record.Gender}},{{record.SNN}},{{record.DOB}},
 {{record.Phone}},{{record.Phone2}},{{record.Address1}},{{record.Address2}},{{record.City}},{{record.State}},{{record.Zip}},
 {{record.MothersMaidenName}},{{record.Email}},{{record.MRN}},{{record.EnterpriseId}},{{record.Alias}}<br/>
 {% endfor %}
