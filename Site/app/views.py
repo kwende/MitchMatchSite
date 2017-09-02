@@ -142,7 +142,7 @@ def showPassed(request):
     setOfSets = []
 
     for checkedSetId in allCheckedSetIds:
-        set = list(SetMember.objects.filter(SetId__id = checkedSetId))
+        set = list(SetMember.objects.filter(SetId__id = checkedSetId, IsGood = True))
         setOfSets.append(set)
         
     return render(request, 
