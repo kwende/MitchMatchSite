@@ -28,6 +28,10 @@ def setAlternativeColors(mainRecord, comparisonRecords):
             comparisonRecord.FirstNameColor == "":
             comparisonRecord.FirstNameColor = "#00FF00"
 
+        if app.softmatching.algorithms.fuzzyMiddleName(mainRecord.MiddleName, comparisonRecord.MiddleName) and \
+            comparisonRecord.MiddleNameColor == "":
+            comparisonRecord.MiddleNameColor = "#00FF00"
+
         if app.softmatching.algorithms.fuzzyDateEquals(mainRecord.DOB, comparisonRecord.DOB) and \
             comparisonRecord.DOBColor == "":
             comparisonRecord.DOBColor = "#00FF00"

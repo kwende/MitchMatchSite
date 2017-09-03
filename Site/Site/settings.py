@@ -70,6 +70,14 @@ WSGI_APPLICATION = 'Site.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'MitchMatch',
+        'USER': 'mitchmatch',
+        'PASSWORD': 'lucasbutthole',
+        'HOST': 'www.ben-rush.net',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    },
+    'old': {
         'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': os.path.join(BASE_DIR, 'C:\MitchMatchDb\db.sqlite3'),
         'NAME': os.path.join(BASE_DIR, 'D:\MitchMatchDb\db.sqlite3'),

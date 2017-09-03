@@ -128,6 +128,9 @@ def fuzzyLastName(lastName1, lastName2):
 def fuzzyFirstName(firstName1, firstName2):
     return kDifferences(firstName1, firstName2, 2)
 
+def fuzzyMiddleName(middleName1, middleName2):
+    return kDifferences(middleName1, middleName2, 2)
+
 def easiestAgreementCount(row1, row2):
     fieldAgreement = 0
 
