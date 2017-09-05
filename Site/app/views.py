@@ -93,7 +93,7 @@ def viewRecordByEnterpriseId(request):
 
     recordToDisplay = Record.objects.get(EnterpriseId = enterpriseId)
 
-    return render(request, 'app/recordByEID.html',
+    return render(request, 'app/.html',
                   {
                       'record' : recordToDisplay,
                   })
