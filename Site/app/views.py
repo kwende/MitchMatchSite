@@ -87,6 +87,17 @@ def findSoftMatches(enterpriseId):
         'SoftMatches' : softMatches
         }
 
+def viewRecordByEnterpriseId(request):
+
+    enterpriseId = int(request.GET["eid"])
+
+    recordToDisplay = Record.objects.get(EnterpriseId = enterpriseId)
+
+    return render(request, 'app/recordByEID.html',
+                  {
+                      'record' : recordToDisplay,
+                  })
+
 def showMLExtras(request):
 
     if request.method == "POST":

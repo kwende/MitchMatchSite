@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\templates\app\alternatives.html" />
+    <Content Include="app\templates\app\recordByEID.html" />
     <Content Include="app\templates\app\mlextras.html" />
     <Content Include="app\templates\app\rejected.html" />
     <Content Include="app\templates\app\passed.html" />

@@ -1,0 +1,94 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>Welcome to Ben's Schlong</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <td>First</td>
+            <td>Last</td>
+            <td>Middle</td>
+            <td>Suffix</td>
+            <td>DOB</td>
+            <td>Gender</td>
+            <td>SSN</td>
+            <td>Address1</td>
+            <td>Address2</td>
+            <td>Zip</td>
+            <td>MothersMaidenName</td>
+            <td>City</td>
+            <td>State</td>
+            <td>Phone</td>
+            <td>Phone2</td>
+            <td>Email</td>
+            <td>MRN</td>
+            <td>Alias</td>
+            <td>EnterpriseId</td>
+        </tr>
+    </thead>
+    <tr>
+        <td>
+            {{record.FirstName}}
+        </td>
+        <td>
+            {{record.LastName}}
+        </td>
+        <td>
+            {{record.MiddleName}}
+        </td>
+        <td>
+            {{record.Suffix}}
+        </td>
+        <td>
+            {{record.DOB}}
+        </td>
+            <td>
+            {{record.Gender}}
+        </td>
+            <td>
+            {{record.SNN}}
+        </td>
+            <td>
+            {{record.Address1}}
+        </td>
+            <td>
+            {{record.Address2}}
+        </td>
+            <td>
+            {{record.Zip}}
+        </td>
+            <td>
+            {{record.MothersMaidenName}}
+        </td>
+            <td>
+            {{record.City}}
+        </td>
+            <td>
+            {{record.State}}
+        </td>
+            <td>
+            {{record.Phone}}
+        </td>
+            <td>
+            {{record.Phone2}}
+        </td>
+            <td>
+            {{record.Email}}
+        </td>
+        <td>
+            {{record.MRN}}
+        </td>
+            <td>
+            {{record.Alias}}
+        </td>
+        <td>
+            {{record.EnterpriseId}}
+        </td>
+    </tr>
+</table>
+{{record.FirstName}},{{record.MiddleName}},{{record.LastName}},{{record.Suffix}},{{record.Gender}},{{record.SNN}},{{record.DOB}},
+{{record.Phone}},{{record.Phone2}},{{record.Address1}},{{record.Address2}},{{record.City}},{{record.State}},{{record.Zip}},
+{{record.MothersMaidenName}},{{record.Email}},{{record.MRN}},{{record.EnterpriseId}},{{record.Alias}}<br/>
+{% endblock %}

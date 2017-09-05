@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^passed.html', app.views.showPassed, name='alternatives'),
     url(r'^mlextras.html', app.views.showMLExtras, name='mlextras'),
     url(r'^rejected.html', app.views.findMLRejections, name='rejected'),
+    url(r'^recordByEID.html', app.views.viewRecordByEnterpriseId, name='viewRecordByEnterpriseId'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
